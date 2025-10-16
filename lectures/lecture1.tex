@@ -1,0 +1,895 @@
+\documentclass[11pt, aspectratio=169]{beamer}
+
+\usepackage{amsmath, amsfonts, microtype, nicefrac, amssymb, amsthm, centernot}
+
+\usepackage{pgfpages}
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+
+\usefonttheme[onlymath]{serif}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{bm}
+
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+\usepackage{setspace}
+
+\usepackage{transparent}
+
+
+%%% FIGURES %%%
+\usepackage{caption, subcaption}
+\usepackage{booktabs, siunitx}
+\usepackage{pgfplots} 
+%\usepackage[outdir=./figures]{epstopdf}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[absolute, overlay]{textpos}
+\usepackage{epstopdf}
+
+
+%%% TIKZ %%%
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{bending}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix, shapes, arrows, fit, tikzmark}
+
+
+%%% ALGORITHM %%%
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{multimedia}
+
+
+%%% APPENDIX SLIDE NUMBERING %%%
+\usepackage{appendixnumberbeamer}
+
+
+%%% BEAMER BUTTON %%%
+%\setbeamertemplate{button}{\tikz
+	%\node[
+	%	inner xsep = 2pt, 
+	%	draw = structure!0, 
+	%	fill = myblue, 
+	%	rounded corners = 4pt]{\color{white} \tiny\insertbuttontext};
+	%}
+
+
+%%% COLORS %%%
+\definecolor{blue}{RGB}{0,38,118}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\definecolor{myred}{RGB}{163,32,45}
+\definecolor{navyblue}{rgb}{0.05,0.2,0.70}
+\definecolor{myblue}{RGB}{0,51,150}
+\definecolor{myorange}{RGB}{255,140,0}
+\definecolor{myref}{RGB}{160,160,160}
+\definecolor{shock}{RGB}{0, 125, 34}%{50, 168, 82}
+
+\definecolor{background}{RGB}{255,253,218}
+
+% Define a new transparent color
+\definecolor{trans}{rgb}{1,1,1}
+\colorlet{trans}{black!20} % 0 percent opacity
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=background, fg=blue,}
+
+%\setbeamercolor{background canvas}{bg=background}
+
+
+%%% FRAME TITLE %%%
+\setbeamerfont{title}{series=\bfseries, parent=structure}
+\setbeamerfont{frametitle}{series=\bfseries, parent=structure}
+
+
+%%% TRANSITION FRAME %%%
+\newenvironment{transitionframe}{
+	\setbeamercolor{background canvas}{bg=blue}
+	\begin{frame}
+		\thispagestyle{empty}
+		\addtocounter{framenumber}{-1}
+		\vspace{42mm}
+		\hspace{4mm} }{
+		\begin{tikzpicture}
+			\tikz \fill [white] (1,6) rectangle (20,10);
+		\end{tikzpicture}
+	\end{frame}
+}
+
+
+%%% OUTLINE %%%
+\AtBeginSection[]
+{
+	\begin{frame}
+       \frametitle{Roadmap of Talk}
+       \tableofcontents[currentsection]
+   \end{frame}
+}
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+
+%%% ENVIRONMENTS
+\newenvironment{witemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+
+\makeatother
+\setbeamertemplate{itemize items}{\large\raisebox{0mm}{\textbullet}}
+\setbeamertemplate{itemize subitem}{\footnotesize\raisebox{0.15ex}{--}}
+\setbeamertemplate{itemize subsubitem}{\Tiny\raisebox{0.7ex}{$\blacktriangleright$}}
+
+\setbeamertemplate{enumerate item}[default]
+\setbeamertemplate{enumerate subitem}{\textbullet}
+\makeatletter
+
+% ITEMIZE SPACING:
+% \usepackage{xpatch}
+% \xpatchcmd{\itemize}
+% {\def\makelabel}
+% {\setlength{\itemsep}{0mm}\def\makelabel}
+% {}
+% {}
+
+
+%%% PRETTY ENUMERATE %%%
+% \usepackage{stackengine,xcolor}
+% \newcommand\circnum[2]{\stackinset{c}{}{c}{.1ex}{\small\textcolor{white}{#2}}%
+	% 	{\abovebaseline[-.7ex]{\Huge\textcolor{#1}{$\bullet$}}}}
+% \newenvironment{myenum}
+% {\let\svitem\item
+	% 	\renewcommand\item[1][black]{%
+		% 		\refstepcounter{enumi}\svitem[\circnum{##1}{\theenumi}]}%
+	% 	\begin{enumerate}}{\end{enumerate}}
+\usepackage{stackengine,xcolor,graphicx}
+\newcommand\circnum[2]{\smash{\stackinset{c}{}{c}{.2ex}{\small\textcolor{white}{#2}}%
+		{\abovebaseline[-1.1ex]{\Huge\textcolor{#1}{\scalebox{1.5}{$\bullet$}}}}}}
+\newenvironment{myenum}
+{\let\svitem\item
+	\renewcommand\item[1][black]{%
+		\refstepcounter{enumi}\svitem[\circnum{##1}{\theenumi}]}%
+	\begin{enumerate}}{\end{enumerate}}
+
+\newcommand{\notimplies}{\;\not\!\!\!\implies}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  TITLE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{\\[8pt]
+	{\large \color{blue} Dynamic Programming and Applications \\[5pt] \normalfont{Discrete Time Dynamics and Optimization} \\[10pt] \normalfont{Lecture 1}}}
+\author[Schaab]{Andreas Schaab}
+\institute{}
+\subject{}
+\date{}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%  BEGIN DOC   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%% TIKZ %%% 
+\tikzstyle{every picture}+=[remember picture]
+%\everymath{\displaystyle}
+
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+
+
+\addtocounter{framenumber}{-1}
+\thispagestyle{empty}
+\maketitle 
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Introduction}
+\begin{witemize}
+\item Many (most) economic phenomena are about dynamics
+
+\item Dynamics $\sim$ changes in the behavior of economic agents over time
+
+\item This is a course about \textbf{dynamic optimization}: main approach to study dynamic models in economics 
+
+\item Goal of this course: hard skills + empower you to do research
+
+$\implies$ \textit{focus on tools, but with tons of applications }
+
+\item The more you can ``tool up'' during your first two years, the better
+
+\item Specifically: \textbf{dynamic programming} one of most powerful tools in economic analysis
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dynamic programming will empower you}
+\begin{witemize}
+\item Macro: consumption, investment, portfolio allocation, ... 
+
+\vspace{-2mm}
+\item Labor: search, wage bargaining, ... 
+
+\vspace{-2mm}
+\item IO: competition and games, pricing, ...
+
+\vspace{-2mm}
+\item Finance: asset pricing, dynamic capital structure, portfolio choice, ... 
+
+\vspace{-2mm}
+\item Growth: technology adoption, poverty traps, firm innovation, ... 
+
+\vspace{-2mm}
+\item Trade / Urban: migration in spatial models, ... 
+
+\vspace{-2mm}
+\item Inequality: evolution of income-wealth distribution, ... 
+
+\vspace{-2mm}
+\item Game theory: dynamic games, ... 
+
+\vspace{-2mm}
+\item ... much, much more 
+
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Acknowledgements}
+
+\begin{witemize}
+\item Course builds on excellent teaching material developed by others
+
+\item Huge thanks to David Laibson and Benjamin Moll for making available their incredible teaching material
+
+\url{https://projects.iq.harvard.edu/econ2010c/lecturesDLaibson}
+
+\url{https://benjaminmoll.com/}
+
+\item Grateful to many others whose material I build on: Pablo Kurlat, Gabriel Chodorow-Reich, Gianluca Violante, ...  
+
+\item Only required textbook: LeVeque on finite difference methods (check syllabus for many other recommendations)
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GitHub}
+\begin{witemize}
+\item One super useful \textit{hard skill} for research / code development: version control
+
+\item You should start using git (via GitHub) in your own work from the start
+
+\item Course material will be available via a GitHub organization at:
+\url{https://github.com/schaab-teaching/DynamicProgramming2024}
+
+\item You should create a GitHub account if you don't already have one
+
+\item If this is new for you, I also recommend GitKraken
+
+\item Get Pro versions of GitHub and GitKraken for free (verify your academic affiliation)
+
+\item Great resource: \url{https://git-scm.com/book/en/v2} \\
+(Especially chapters 2, 3, 5, and 6)
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Admin}
+\begin{witemize}
+\item Course co-taught by Kiyea and myself
+
+\item Lectures will focus on theory and applications; sections will teach you coding
+
+\item Problem sets every week. Two parts in two separate (!) docs: analytical and numerical. They are optional. Final counts for 100\% of your grade. 
+
+{\footnotesize \textit{You are responsible from now on}}
+
+\item {\color{blue} \textbf{However}}: completing the homework earns you extra credit, up to 60\%
+
+{\footnotesize To illustrate, suppose you score 75/100 on exam. Without homework, 75\%. If you complete half of the problems each week: 30 + 0.7*75 = 82.5\%. If you complete all problems: 60 + 0.4*75 = 90\%.} 
+
+\item Final exam will be close to the homework: I want to maximally incentivize you to work hard on the homework
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Honor Code}
+
+Rules of the game:
+
+\vspace{5mm}
+\begin{quote}
+	By turning in homework to receive extra credit, I affirm that (i) I did not consult past solution keys and (ii) I intellectually contributed to each problem answer I am submitting.
+\end{quote}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Course Overview}
+
+Part I: dynamic programming (with examples and applications)
+\begin{witemize}
+\vspace{1mm}
+\item Lectures 1-2: Dynamic programming in discrete time
+\vspace{-2mm}
+\item Lectures 3-4: Deterministic dynamic programming in continuous time
+\vspace{-2mm}
+\item Lectures 5-6: Stochastic dynamic programming in continuous time
+\end{witemize}
+
+\vspace{5mm}
+Part II: (even more) applications
+\begin{witemize}
+\vspace{1mm}
+\item Lectures 7-8: Consumption
+\vspace{-2mm}
+\item Lectures 9: Investment
+\vspace{-2mm}
+\item Lectures 10-11: Inequality
+\vspace{-2mm}
+\item Lectures 12-13: Welfare 
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline}
+\thispagestyle{empty}
+\addtocounter{framenumber}{-1}
+
+Part 1: Neoclassical growth model
+\begin{enumerate}
+	\item Environment
+	\item Planning problem
+\end{enumerate}
+
+\vspace{5mm}
+Part 2: dynamic programming 
+\begin{enumerate}
+	\item Bellman equation
+	\item First-order and envelope conditions
+	\item Solving the Bellman equation with guess-and-verify
+	\item Bellman operator 
+\end{enumerate}
+
+\vspace{5mm}
+Part 3: Competitive equilibrium
+
+\end{frame}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{transitionframe}
+	{\color{white} \Huge \textbf{Part 1: Neoclassical Growth Model} \vspace{2mm}}
+\end{transitionframe}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1. Environment}
+\begin{witemize}
+\item Time is discrete with $t = 0, 1, \ldots$ and there is no uncertainty
+
+\item Consider a \textbf{representative household} 
+
+\item \textbf{Preferences} over consumption $c_t$ given by
+\begin{equation*}
+	\max_{ \{ c_t \}_{t=0}^\infty } \sum_{t = 0}^\infty \beta^t u(c_t)
+\end{equation*}
+
+\item $u(\cdot)$ is \textbf{flow utility}: units of $c_t$ ``dollars'' or ``apples'', units of $u(c_t)$ ``utils''
+\end{witemize}
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item \textbf{Technologies}: final good produced according to 
+\begin{equation*}
+	y_t = f(k_t)
+\end{equation*}
+and capital accumulation technology is 
+\begin{equation*}
+	k_{t+1} = i_t + (1 - \delta) k_t 
+\end{equation*}
+for given $k_0 = \bar k$ (\textbf{initial condition})
+
+\item \textbf{Resource constraint:}
+\begin{equation*}
+	y_t = c_t + i_t
+\end{equation*}
+\end{witemize}
+
+\vspace{4mm}
+\textbf{Definition.} Given initial capital stock $k_0$, a \textbf{feasible allocation} consists of sequences $\{y_t, c_t, i_t, k_t\}_{t = 0}^\infty$ that satisfy the production and capital accumulation technologies, the resource constraint, as well as non-negativity constraints $y_t \geq 0$, $c_t \geq 0$, $i_t \geq 0$ and $k_{t+1} \geq 0$.
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2. Planning problem}
+
+\vspace{4mm}
+\textbf{Definition.} The planning problem is to choose a feasible allocation that maximizes the lifetime utility of the representative household.  
+
+\vspace{5mm}
+\begin{witemize}
+\item Notice: we have not introduced prices, markets, budget constraints, etc.
+
+\item Why is planning problem relevant? (i) important in its own right to understand efficiency, and (ii) turns out first welfare theorem applies here, so efficient allocation = competitive equilibrium allocation
+
+\item Social welfare = lifetime utility of representative household (why?)
+
+\item ``choose a feasible allocation'' = choose sequences $\{y_t, c_t, i_t, k_t\}_{t = 0}^\infty$ subject to technologies and resource constraints
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item Assume $f(k_t) = k_t^\alpha$ with $\alpha \in (0, 1)$ and $\delta = 1$
+
+\item Can write the planning problem as 
+\begin{equation*}
+	V(k_0) = \max_{ \{ c_t \}_{t=0}^\infty } \sum_{t = 0}^\infty \beta^t u(c_t)
+\end{equation*}
+s.t. 
+\begin{equation*}
+	k_{t+1} = k_t^\alpha - c_t. 
+\end{equation*}
+
+\item This is the \textbf{sequence problem} (or problem in sequence form)
+
+\item We can substitute in: 
+\begin{equation*}
+	V(k_0) = \max_{ \{ k_{t+1} \}_{t=0}^\infty } \sum_{t = 0}^\infty \beta^t u(k_t^\alpha  - k_{t+1})
+\end{equation*}
+
+\item Given initial condition $k_0$
+
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{itemize}
+\item We can tackle the sequence problem directly using tools from constrained dynamic optimization
+
+\item Lagrangian after substituting with FOC for $k_{t+1}$:
+\begin{equation*}
+	L(k_0) =  \sum_{t = 0}^\infty \beta^t u(k_t^\alpha  - k_{t+1})
+\end{equation*}
+\begin{equation*}
+	0 = - \beta^t u'(c_t) + \beta^{t+1} u'(c_{t+1}) \alpha k_{t+1}^{\alpha - 1}
+\end{equation*}
+
+\item Lagrangian with multiplier before substituting with FOCs for $c_t$ and $k_{t+1}$:
+\begin{equation*}
+	L(k_0) =  \sum_{t = 0}^\infty \beta^t \bigg[ u(c_t) + \lambda_t \bigg( k_t^\alpha - c_t - k_{t+1} \bigg) \bigg]
+\end{equation*}
+\begin{align*}
+	0 &= \beta^t u'(c_t) - \beta^t \lambda_t \\
+	0 &= -\beta^t \lambda_t + \alpha \beta^{t+1} \lambda_{t+1} k_{t+1}^{\alpha - 1}
+\end{align*}
+
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\textbf{Proposition.} An allocation $\{y_t, c_t, i_t, k_t\}_{t = 0}^\infty$ is (Pareto) efficient if it is feasible and satisfies   
+\begin{equation*}
+	u'(c_t) = \beta f'(k_{t+1}) u'(c_{t+1}).
+\end{equation*}
+
+\vspace{6mm}
+In other words, an efficient allocation solves the equations:
+\begin{align*}
+	u'(c_t) &= \beta f'(k_{t+1}) u'(c_{t+1}) \\
+	y_t &= f(k_t) \\
+	k_{t+1} &= i_t \\
+	y_t &= c_t + i_t,
+\end{align*}
+given initial condition $k_0 = \bar k$.
+
+Always count equations and unknowns!!
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{transitionframe}
+	{\color{white} \Huge \textbf{Part 2: Dynamic Programming} \vspace{2mm}}
+\end{transitionframe}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1. Bellman equation}
+
+\textbf{Definition.} The \textbf{Bellman equation} characterizes the value function as the sum of the \textbf{flow payoff} and the discounted \textbf{continuation value}
+\begin{equation*}
+	V(k) = \max_{k'} \Big\{ u(k^\alpha - k') + \beta V(k') \Big\} \quad \text{ for all } k
+\end{equation*}
+
+\begin{witemize}
+\item We call $V(k)$ the value function and $u(k^\alpha - k')$ flow payoff or (instantaneous) utility flow
+
+\item \textbf{Recursive representation} of the planning problem (not sequence form)
+
+\item We say that $\mathcal X = [0, \bar k]$ is the \textbf{state space} of the neoclassical growth model. The Bellman equation must hold for all feasible levels of capital $k \in \mathcal X$.
+
+\item If $V(k)$ solves the above equation, then it is a solution to the Bellman equation. Next: the unique value function that solves sequence problem also solves Bellman equation
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item Sequence problem $\longrightarrow$ recursive representation (Bellman equation)
+\begin{align*}
+	V(k_0) &= \max_{ \{ k_{t+1} \}_{t=0}^\infty } \, \bigg\{  \sum_{t = 0}^\infty \beta^t u(k_t^\alpha  - k_{t+1}) \bigg\} \\
+	&= \max_{ \{ k_{t+1} \}_{t=0}^\infty } \, \bigg\{ u(k_0^\alpha  - k_1) + \sum_{t = 1}^\infty \beta^t u(k_t^\alpha  - k_{t+1}) \bigg\}  \\
+	&= \max_{ \{ k_{t+1} \}_{t=0}^\infty } \, \bigg\{ u(k_0^\alpha  - k_1) + \beta \sum_{t = 1}^\infty \beta^{t-1} u(k_t^\alpha  - k_{t+1}) \bigg\} \\
+	&= \max_{k_1} \, \bigg\{ u(k_0^\alpha  - k_1) + \beta \max_{ \{ k_{t+1} \}_{t=1}^\infty } \, \bigg\{  \sum_{t = 0}^\infty \beta^t u(k_{t+1}^\alpha  - k_{t+2}) \bigg\} \bigg\} \\
+	&= \max_{ k_1} \, \bigg\{ u(k_0^\alpha  - k_1) + \beta V(k_1) \bigg\}
+\end{align*}
+
+\item Recursively, with $k$ capital ``today'' and $k'$ capital ``tomorrow''
+\begin{align*}
+	V(k) &= \max_{k'} \, \bigg\{ u(k^\alpha  - k') + \beta V(k') \bigg\}
+\end{align*}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item A solution to the Bellman equation also solves Sequence Problem
+\begin{align*}
+	V(k_0) &= \max_{ k_1} \, \bigg\{ u(k_0^\alpha  - k_1) + \beta V(k_1) \bigg\} \\
+	&= \max_{ k_1} \, \bigg\{ u(k_0^\alpha  - k_1) + \beta \bigg( \max_{ k_2} \, \bigg\{ u(k_1^\alpha  - k_2) + \beta V(k_2) \bigg\} \bigg) \bigg\} \\
+	&= \max_{ k_1, k_2} \, \bigg\{ u(k_0^\alpha  - k_1) + \beta u(k_1^\alpha  - k_2) + \beta^2 V(k_2) \bigg\} \\
+	&= \max_{ k_1, k_2, k_3} \, \bigg\{ u(k_0^\alpha  - k_1) + \beta u(k_1^\alpha  - k_2) + \beta^2 u(k_2^\alpha  - k_3) + \beta^3 V(k_3) \bigg\} \\
+	&\;\; \vdots \\
+	&= \max_{ \{ k_{t+1} \}_{t=0}^\infty } \, \bigg\{  \sum_{t = 0}^\infty \beta^t u(k_t^\alpha  - k_{t+1}) \bigg\} 
+\end{align*}
+
+\item Stokey and Lucas Thm 4.3: Sufficient condition is that $\lim_{n \to \infty} \beta^n V(k_n) = 0$ for all feasible sequences of $\{ k_t \}$ 
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2. First-Order and Envelope Conditions}
+\begin{witemize}
+\item How do we find optimal behavior? 
+
+\item First-order condition for $k'$ is
+\begin{equation*}
+	\frac{\partial u(k^\alpha - k')}{\partial k'} = \beta \frac{\partial V(k')}{\partial k'}
+\end{equation*}
+
+\item FOC defines \textbf{policy function} $k'(k)$, use to plug back into Bellman:
+\begin{align*}
+	V(k) &= u(k^\alpha  - k'(k)) + \beta V(k'(k))
+\end{align*}
+
+\item The implied \textbf{consumption policy function} is: $c(k) = k^\alpha - k'(k)$
+
+\item Important: we now characterize the solution to the model via \textbf{functions} ($V(k)$ and $c(k)$) and no longer via stochastic processes ($\{c_t\}_{t = 0}^\infty$)
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item Envelope theorem (in discrete time):
+\begin{align*}
+	\frac{\partial V(k)}{\partial k} &= \frac{\partial u(k^\alpha - k')}{\partial k}
+\end{align*}
+
+\item Work out at home: (i) prove envelope condition (ii) show resulting Euler equation coincides with solving sequence problem using Lagrangian
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3. Solving the Bellman equation with guess-and-verify}
+\begin{witemize}
+\item Assume the functional form $u(c_t) = \log(c_t)$ 
+
+\item Guess that the value function takes the form 
+\begin{equation*}
+	V(k) = A + B \log(k)
+\end{equation*}
+
+\item Strategy: Plug into Bellman equation, match coefficients
+
+\item Oftentimes, value function inherits functional form / shape of utility function
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item First-order condition for capital with log utility:
+\begin{equation*}
+	\frac{1}{k^\alpha - k'} = \beta B \frac{1}{k'} \implies  k' = \frac{\beta B}{1 + \beta B} k^\alpha
+\end{equation*}
+
+\item Plug guess into Bellman:
+\begin{align*}
+	V(k) &= \max_{k'} \, \bigg\{ \log(k^\alpha  - k') + \beta V(k') \bigg\} \\
+	A + B \log(k) &= \max_{k'} \, \bigg\{ \log(k^\alpha  - k') + \beta A + \beta B \log(k') \bigg\} \\
+	A + B \log(k) &= \log\bigg(k^\alpha  - \frac{\beta B}{1 + \beta B} k^\alpha \bigg) + \beta A + \beta B \log\bigg( \frac{\beta B}{1 + \beta B} k^\alpha \bigg)
+\end{align*}
+
+\item Solve for $A$ and $B$ so that coefficients of $\log(k)$ and constant terms cancel 
+
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+More general Stokey-Lucas notation: Let $F(x_t, x_{t+1})$ be flow payoff
+
+\vspace{8mm}
+\textbf{Sequence problem}: Find $V(x)$ such that 
+\begin{equation*}
+	V(x_0) = \sup_{ \{ x_{t+1} \}_{t=0}^\infty} \, \sum_{t=0}^\infty \beta^t F(x_t, x_{t+1})
+\end{equation*}
+subject to $x_{t+1}$ in some feasible set $\Gamma(x_t)$, with $x_0$ given
+
+\vspace{8mm}
+\textbf{Bellman equation}: Find $V(x)$ such that 
+\begin{equation*}
+	V(x) = \sup_{x' \in \Gamma(x)} \Big\{ F(x, x') + \beta V(x') \Big\}
+\end{equation*}
+for all $x$ in the state space
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{4. Bellman operator}
+\begin{witemize}
+\item In discrete time, Bellman equation is a \textbf{functional equation}
+
+\item Define the \textbf{Bellman operator} $B$, operating on function $w(\cdot)$, as
+\begin{equation*}
+	(Bw)(x) \equiv \max_{x'} \Big\{ F(x, x') + \beta w(x') \Big\} \quad \text{ for all } x
+\end{equation*}
+
+\item \textbf{Operators} are maps from one function space to another (learn functional analysis!)
+
+\item The value function $V(\cdot)$ is a fixed point of the operator $B$:
+\begin{align*}
+	(BV)(x) &= \max_{x'} \Big\{ F(x, x') + \beta V(x') \Big\} \\
+	&= V(x)
+\end{align*}
+
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+
+\item This idea is useful in numerical analysis: Suppose we guess $V^0$ and look for fixed point 
+\begin{equation*}
+	\lim_{n \to \infty} B^n V^0 = V
+\end{equation*}
+
+\item The Bellman operator is a \textbf{contraction mapping} under some conditions
+
+\item This tells us that the Bellman operator converges (and we can use this to construct numerical fixed point algorithms)
+
+\item For example: If an operator $B$ maps a complete metric space into itself and is a contraction mapping, then it has a unique fixed point
+
+\item This is a very important idea. And you should read about this on your own. 
+
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{transitionframe}
+	{\color{white} \Huge \textbf{Part 3: Competitive Equilibrium} \vspace{2mm}}
+\end{transitionframe}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1. Environment}
+
+\begin{witemize}
+\item Time is discrete with $t = 0, 1, \ldots$ and there is no uncertainty
+\end{witemize}
+
+\vspace{4mm}
+\textbf{Households.} Consider a \textbf{representative household} with preferences
+\begin{equation*}
+	\max_{ \{ c_t \}_{t=0}^\infty } \sum_{t = 0}^\infty \beta^t u(c_t)
+\end{equation*}
+
+\begin{witemize}
+\item $u(\cdot)$ is \textbf{flow utility}: units of $c_t$ ``dollars'' or ``apples'', units of $u(c_t)$ ``utils''
+
+\item Household owns capital and faces budget constraint
+\begin{equation*}
+	k_{t+1} = i_t + (1 - \delta) k_t 
+	\quad\quad \text{ and } \quad\quad
+	c_t + i_t = r_t k_t + w_t
+\end{equation*}
+where $r_t$ is rental rate of capital, $w_t$ is wage
+
+\item Household endowed with 1 unit of time, inelastically supplied as labor
+
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\vspace{4mm}
+\textbf{Firms.} Consider a \textbf{representative firm} that operates technology 
+\begin{equation*}
+	y_t = f(k_t, \ell_t)
+\end{equation*}
+and earns profit $\Pi_t = y_t - r_t k_t - w_t \ell_t$ 
+
+\vspace{5mm}
+\begin{witemize}
+\item \textbf{Assumptions:} $f(\cdot)$ is constant-returns and firms are perfectly competitive
+
+\item Implies 0 profits and 
+\begin{equation*}
+	r_t = f_k(k_t, \ell_t) 
+	\quad\quad \text{ and } \quad\quad
+	w_t = f_\ell(k_t, \ell_t)
+\end{equation*}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\vspace{4mm}
+\textbf{Market clearing.} How many markets are there? 
+\begin{align*}
+	y_t &= c_t + i_t \\
+	\ell_t &= 1 
+\end{align*}
+What about capital?
+
+\vspace{5mm}
+\textbf{Definition.} Given initial capital $k_0$, a \textbf{competitive equilibrium} comprises an allocation $\{y_t, \ell_t, k_{t+1}, c_t, i_t\}$ and prices $\{w_t, r_t\}$ such that
+\begin{enumerate}
+	\item Households solve: taking as given $\{r_t, w_t\}$, $\max_{\{c_t\}} \sum_{t = 0}^\infty \beta^t u(c_t)$ subject to $k_{t+1} = i_t + (1 - \delta) k_t$ and $i_t + c_t = r_t k_t + w_t$ as well as $c_t, k_{t+1}, i_t \geq 0$
+
+	\item Firms solve: taking as given $\{r_t, w_t\}$, $\max_{k_t, \ell_t} y_t - r_t k_t - w_t \ell_t$ subject to $y_t = f(k_t, \ell_t)$ and $k_t, \ell_t \geq 0$
+
+	\item Markets for goods, labor and capital clear
+\end{enumerate}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2. Discussion}
+
+\begin{witemize}
+\item Make it a habit to always define equilibrium rigorously
+
+	{\footnotesize Save yourself from countless mistakes and help others understand what you do}
+
+\item One takeaway from this course: ``best-practice'' for setting up and presenting models
+
+\item In macro, we write our models in terms of agents making decisions, then aggregate up 
+
+	{\footnotesize Set up + present each agent's problem rigorously (Lucas Critique, ``microfoundations''}
+
+\item Rule of thumb: get to your equilibrium definition as quickly as possible; 
+
+	{\footnotesize Keep intermediate results and digressions for after}
+
+\item Planning problem vs. competitive equilibrium?
+\end{witemize}
+\end{frame}
+\end{document}

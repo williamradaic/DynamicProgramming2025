@@ -1,0 +1,742 @@
+\documentclass[11pt, aspectratio=169]{beamer}
+
+\usepackage{amsmath, amsfonts, microtype, nicefrac, amssymb, amsthm, centernot}
+
+\usepackage{pgfpages}
+
+\usepackage{helvet}
+\usepackage[default]{lato}
+\usepackage{array}
+
+\usefonttheme[onlymath]{serif}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{bm}
+
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+\usepackage{setspace}
+
+\usepackage{transparent}
+
+
+%%% FIGURES %%%
+\usepackage{caption, subcaption}
+\usepackage{booktabs, siunitx}
+\usepackage{pgfplots} 
+%\usepackage[outdir=./figures]{epstopdf}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage[absolute, overlay]{textpos}
+\usepackage{epstopdf}
+
+
+%%% TIKZ %%%
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{bending}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix, shapes, arrows, fit, tikzmark}
+
+
+%%% ALGORITHM %%%
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{multimedia}
+
+
+%%% APPENDIX SLIDE NUMBERING %%%
+\usepackage{appendixnumberbeamer}
+
+
+%%% BEAMER BUTTON %%%
+%\setbeamertemplate{button}{\tikz
+	%\node[
+	%	inner xsep = 2pt, 
+	%	draw = structure!0, 
+	%	fill = myblue, 
+	%	rounded corners = 4pt]{\color{white} \tiny\insertbuttontext};
+	%}
+
+
+%%% COLORS %%%
+\definecolor{blue}{RGB}{0,38,118}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\definecolor{myred}{RGB}{163,32,45}
+\definecolor{navyblue}{rgb}{0.05,0.2,0.70}
+\definecolor{myblue}{RGB}{0,51,150}
+\definecolor{myorange}{RGB}{255,140,0}
+\definecolor{myref}{RGB}{160,160,160}
+\definecolor{shock}{RGB}{0, 125, 34}%{50, 168, 82}
+
+\definecolor{background}{RGB}{255,253,218}
+
+% Define a new transparent color
+\definecolor{trans}{rgb}{1,1,1}
+\colorlet{trans}{black!20} % 0 percent opacity
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=background, fg=blue,}
+
+%\setbeamercolor{background canvas}{bg=background}
+
+
+%%% FRAME TITLE %%%
+\setbeamerfont{title}{series=\bfseries, parent=structure}
+\setbeamerfont{frametitle}{series=\bfseries, parent=structure}
+
+
+%%% TRANSITION FRAME %%%
+\newenvironment{transitionframe}{
+	\setbeamercolor{background canvas}{bg=blue}
+	\begin{frame}
+		\thispagestyle{empty}
+		\addtocounter{framenumber}{-1}
+		\vspace{42mm}
+		\hspace{4mm} }{
+		\begin{tikzpicture}
+			\tikz \fill [white] (1,6) rectangle (20,10);
+		\end{tikzpicture}
+	\end{frame}
+}
+
+
+%%% OUTLINE %%%
+\AtBeginSection[]
+{
+	\begin{frame}
+       \frametitle{Roadmap of Talk}
+       \tableofcontents[currentsection]
+   \end{frame}
+}
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+
+%%% ENVIRONMENTS
+\newenvironment{witemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+
+\makeatother
+\setbeamertemplate{itemize items}{\large\raisebox{0mm}{\textbullet}}
+\setbeamertemplate{itemize subitem}{\footnotesize\raisebox{0.15ex}{--}}
+\setbeamertemplate{itemize subsubitem}{\Tiny\raisebox{0.7ex}{$\blacktriangleright$}}
+
+\setbeamertemplate{enumerate item}[default]
+\setbeamertemplate{enumerate subitem}{\textbullet}
+\makeatletter
+
+% ITEMIZE SPACING:
+% \usepackage{xpatch}
+% \xpatchcmd{\itemize}
+% {\def\makelabel}
+% {\setlength{\itemsep}{0mm}\def\makelabel}
+% {}
+% {}
+
+
+%%% PRETTY ENUMERATE %%%
+% \usepackage{stackengine,xcolor}
+% \newcommand\circnum[2]{\stackinset{c}{}{c}{.1ex}{\small\textcolor{white}{#2}}%
+	% 	{\abovebaseline[-.7ex]{\Huge\textcolor{#1}{$\bullet$}}}}
+% \newenvironment{myenum}
+% {\let\svitem\item
+	% 	\renewcommand\item[1][black]{%
+		% 		\refstepcounter{enumi}\svitem[\circnum{##1}{\theenumi}]}%
+	% 	\begin{enumerate}}{\end{enumerate}}
+\usepackage{stackengine,xcolor,graphicx}
+\newcommand\circnum[2]{\smash{\stackinset{c}{}{c}{.2ex}{\small\textcolor{white}{#2}}%
+		{\abovebaseline[-1.1ex]{\Huge\textcolor{#1}{\scalebox{1.5}{$\bullet$}}}}}}
+\newenvironment{myenum}
+{\let\svitem\item
+	\renewcommand\item[1][black]{%
+		\refstepcounter{enumi}\svitem[\circnum{##1}{\theenumi}]}%
+	\begin{enumerate}}{\end{enumerate}}
+
+\newcommand{\notimplies}{\;\not\!\!\!\implies}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  TITLE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{\\[8pt]
+	{\large \color{blue} Dynamic Programming and Applications \\[5pt] \normalfont{Investment} \\[10pt] \normalfont{Lecture 9}}}
+\author[Schaab]{Andreas Schaab}
+\institute{}
+\subject{}
+\date{}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%  BEGIN DOC   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%% TIKZ %%% 
+\tikzstyle{every picture}+=[remember picture]
+%\everymath{\displaystyle}
+
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+
+
+\addtocounter{framenumber}{-1}
+\thispagestyle{empty}
+\maketitle 
+\newpage
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline}
+\thispagestyle{empty}
+\addtocounter{framenumber}{-1}
+
+Part 1: Theory
+\begin{enumerate}
+\item Demand for capital
+
+\item User cost of capital
+
+\item Adjustment costs
+
+\item Tobin's Q
+\end{enumerate}
+
+\vspace{5mm}
+Part 2: Empirical regularities 
+\begin{enumerate}
+\item Tobin's Q in the data
+\item Investment sensitivity to cash flows
+\item Zwick and Mahon (2017)
+\end{enumerate}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Overview}
+\begin{witemize}
+\item Investment is important for macroeconomics
+
+\item Investment increases the stock of capital, therefore key determinant of growth
+
+\item Investment is volatile, matters a lot for business cycle fluctuations
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1. Demand for capital}
+\begin{witemize}
+\item Consider a firm that operates a production function 
+\begin{equation*}
+	y_t = F(z_t, k_t, x_t)
+\end{equation*}
+where $z_t$ is exogenous productivity and $x_t$ other inputs
+
+\item Suppose firm can rent capital \textit{frictionlessly} at rate $r_t^k$
+
+\item Firm problem therefore given by
+\begin{equation*}
+	\max_k F(z_t, k_t, x_t^*) - r_t^k k_t
+\end{equation*}
+where $x_t^*$ denotes optimal choice of other inputs 
+
+\item Optimal capital demand then determined by:
+\begin{equation*}
+	F_{k, t} \equiv \partial_k F(\cdot) = r_t^k
+\end{equation*}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2. User cost of capital}
+\begin{witemize}
+\item Capital usually not rented but owned by firms
+
+\item What is the appropriate notion of ``rental rate''? $\implies$ user cost literature
+
+\item Consider the deterministic firm (sequence) problem:
+\begin{equation*}
+	V(k_0) = \max_{ \{i_t\}_{t \geq 0} } \int_0^\infty e^{- \int_0^t r_s ds} \Big( f_t(k_t) - p_t i_t \Big) dt
+\end{equation*}
+where $f_t(k_t) = F(z_t, k_t, x_t^*)$, facing the capital accumulation technology 
+\begin{equation*}
+	\dot k_t = i_t - \delta k_t
+\end{equation*}
+
+\item Interpretation? (PE, small firm, take prices as given, SDF, ...)
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item How do we solve this problem? (i) optimal control theory (ii) dynamic programming 
+
+\item Hamiltonian is: $\mathcal H_t (k_t, i_t, \lambda_t) = f_t(k_t) - p_t i_t + \lambda_t(i_t - \delta k_t)$ 
+
+\item What are control and state? Cookbook solution:
+	\begin{align*}
+		0 &= \partial_i \mathcal H_t = - p_t + \lambda_t \\
+		r_t \lambda_t - \dot \lambda_t &= \partial_k \mathcal H_t = f_{k, t} - \delta \lambda_t 
+	\end{align*}
+
+\item Practice: derive the transversality condition at home using calculus of variations
+
+\item Combining and using the capital demand condition $r_t^k = f_{k, t}$:
+\begin{equation*}
+	\text{user cost } = r_t^k = \bigg( r_t + \delta - \frac{\dot p_t}{p_t} \bigg) p_t
+\end{equation*}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item Next: dynamic programming. Convince yourself you can derive HJB:
+\begin{equation*}
+	r_t V_t(k) = \partial_t V_t(k) + \max_i \bigg\{ f_t(k) - p_t i + (i - \delta k) \partial_k V_t(k) \bigg\}
+\end{equation*}
+
+\item Why is this HJB not stationary, i.e., why $\partial_t V_t(k)$?
+
+\item FOC: $p_t = \partial_k V_t(k)$ $\implies$ price of investment = marginal value of capital
+
+\end{witemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+\begin{equation*}
+	r_t V_t(k) = \partial_t V_t(k) + \max_i \bigg\{ f_t(k) - p_t i + (i - \delta k) \partial_k V_t(k) \bigg\}
+\end{equation*}
+
+\begin{witemize}
+\item Envelope condition: 
+\begin{equation*}
+	r_t \partial_k V_t(k) = \partial_{kt} V_t(k) + \partial_k f_t(k) - \delta \partial_k V_t(k) + (i(k) - \delta k) \partial_{kk} V_t(k)
+\end{equation*}
+
+\item Next, differentiate FOC $p_t = \partial_k V_t(k)$ with respect to time: 
+\begin{equation*}
+	\dot p_t = \frac{d}{dt} p_t = \frac{d}{dt} \partial_k V_t(k) = \partial_{kt} V_t(k) \frac{dt}{dt} + \partial_{kk} V_t(k) \frac{dk}{dt} 
+\end{equation*}
+
+\item Finally, put all together:
+\begin{align*}
+	& r_t \partial_k V_t(k) = \partial_k f_t(k) - \delta \partial_k V_t(k) + \dot p_t \\
+	\implies & \text{user cost } = r_t^k = \partial_k f_t(k) = \bigg( r_t + \delta - \frac{\dot p_t}{p_t} \bigg) p_t
+\end{align*}
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Interpreting user cost model}
+\begin{witemize}
+\item User cost of capital
+\begin{itemize}
+	\item increases with $r_t$
+	\item increases with depreciation rate $\delta$
+	\item decreases with capital gains rate $\dot p_t / p_t$
+\end{itemize}
+
+\item Hall and Jorgenson (1967): user cost model helpful to evaluate tax policies
+
+\item But not very helpful for investment dynamics:
+\begin{itemize}
+	\item Model determines capital stock, change in $r_t^k$ requires `jumps'
+
+	\item Decisions about capital stock become static, not forward-looking
+\end{itemize}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item High elasticity of capital demand to user cost of capital $\implies$ observed variation in interest rates would generate counter-factually large investment volatility
+
+\item What might slow down the adjustment of the capital stock?
+
+\item Internal adjustment costs:
+\begin{itemize}
+	\item Direct costs faced by firms 
+	\item More costly construction and training of workers
+	\item Disruption of current production
+\end{itemize}
+
+\item External adjustment costs:
+\begin{itemize}
+	\item Financing needs $\implies$ large upfront investment costs
+	\item Capital goods distinct from consumption goods, distinct capital producing sector, firm may not be ``small''
+\end{itemize}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3. A model of firm investment with adjustment costs} 
+\begin{witemize}
+\item Let's start with simple quadratic (smooth + convex) adjustment cost:
+\begin{equation*}
+	C(i_t) , \quad \quad \text{ where } C(0) = 0, C'(0) = 0, C''(i_t) > 0
+\end{equation*}
+
+
+\item Firms problem now: 
+\begin{equation*}
+	V(k_0) = \max_{ \{i_t\}_{t \geq 0} } \int_0^\infty e^{- \int_0^t r_s ds} \bigg( f_t(k_t) - i_t - C(i_t) \bigg) dt
+\end{equation*}
+facing the capital accumulation technology 
+\begin{equation*}
+	\dot k_t = i_t - \delta k_t
+\end{equation*}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item HJB is given by (make sure this makes sense to you): 
+\begin{equation*}
+	r_t V_t(k) = \partial_t V_t(k) + \max_i \bigg\{ f_t(k) - i - C(i) + (i - \delta k) \partial_k V_t(k) \bigg\}
+\end{equation*}
+
+\item Implies FOC:
+\begin{equation*}
+	1 + C'(i_t(k)) = \partial_k V_t(k) 
+	\quad \implies \quad
+	i_t(k) = (C')^{-1} \Big( \partial_k V_t(k) - 1 \Big)
+\end{equation*}
+
+\item Envelope condition (dropping $t$ subscripts and abbreviating derivatives):
+\begin{equation*}
+	rV_k = V_{tk} + f_k + (i-\delta k) V_{kk} - \delta V_k
+\end{equation*}
+
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item Rewriting:
+\begin{equation*}
+	(r - \delta) V_k = f_k + V_{tk} + (i-\delta k) V_{kk} 
+\end{equation*}
+
+\item Now again differentiate: $\dot V_k = V_{kt} + V_{kk} \dot k = V_{tk} + (i-\delta k) V_{kk}$, so
+\begin{equation*}
+	(r - \delta) V_k = f_k + \dot V_k 
+\end{equation*}
+
+\item We now introduce new notation:
+\begin{equation*}
+	\text{Tobin's (marginal) Q } = q = V_k
+\end{equation*}
+
+\item Firm's decision problem summarized by system of equations:
+\begin{align*}
+	(r - \delta) q &= f_k + \dot q \\
+	\dot k &= i - \delta k \\
+	C'(i) &= q - 1
+\end{align*}
+
+\end{witemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+
+\item Denote the function:  
+\begin{align*}
+	i = (C')^{-1} ( q - 1 ) 
+	\quad \implies \quad
+	i = \Phi(q-1)
+\end{align*}
+
+\item Given initial capital $k_0$, sequences $\{q_t, k_t\}_{t \geq 0}$ solve the firm problem if they satisfy
+\begin{align*}
+	\dot q_t &= (r_t - \delta) q_t - f_{k, t} \\
+	\dot k_t &= \Phi(q_t-1) - \delta k_t
+\end{align*}
+
+\item System of 2 ODEs. $q$ equation is \textit{forward-looking} while $k$ equation is \textit{backward-looking}. Why?
+
+\item We can solve $q$ equation forward to obtain:
+\begin{equation*}
+	q_t = \int_t^\infty e^{- \int_t^s (r_\ell - \delta) d\ell} f_{k, s} ds 
+\end{equation*}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+
+\item Analyze via phase diagram, suppose $r_t = r$ and $\delta = 0$ 
+
+\item Steady state: $q = 1$ and $r = f_k$
+
+\item $q_t$ is a jump variable (like consumption)
+
+\item Capital $k_t$ is a predetermined state variable, must always follow continuous path (infinite investment would be too costly)
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{4. Tobin's Q}
+\begin{witemize}
+\item What is the significance of $q_t = \partial_k V_t(k)$? 
+
+\item $q_t$ is the (shadow) value of one additional unit of installed capital
+
+\item Connection between sequence problem and dynamic programming: $q_t$ turns out to be the Lagrange multiplier on relaxing capital / investment constraint
+
+\item In this model, $q_t$ is a sufficient statistic for firm investment 
+
+\item Firms invest whenever shadow value of installed capital is larger than value of consumption good: $q_t > 1$
+
+\item Without adjustment costs, firms invest until $q_t = 1$
+
+\item With, firms invest until excess value equal to adjustment cost on margin
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item In the data, \textbf{average Q} easier to measure than \textbf{marginal Q} 
+
+\item Our theory: marginal Q is sufficient statistic for investment
+
+\item Tobin (1969) argued that firms should invest if 
+\begin{equation*}
+	Q = \frac{ \text{Market value of firm capital}}{\text{Book value of capital}} > 1
+\end{equation*}
+
+\item Hayashi (1982): Average Q = marginal Q when markets competitive and production function + adjustment cost homogeneous of degree 1
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{5. Tobin's Q and investment in the data}
+\begin{witemize}
+\item Q-theory suggests Q (NPV of marginal projects avaialble to the firm) is sufficient statistic
+
+\item Under additional conditions, average Q (market relative to book value) encodes the NPV of these marginal projects
+
+\item Other variables such as contemporaneous cash flows should not matter. We can test this 
+
+\item Suppose we estimate regression:
+\begin{equation*}
+	\frac{I_{it}}{K_{it}} = \alpha + \beta Q_{it} + \epsilon_{it}	
+\end{equation*}
+
+\item Summers (1981, Brookings) estimates this by OLS and finds $\beta = 0.031 (0.005)$. Very low, implies high adjustment cost!
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\begin{witemize}
+\item Suppose we estimate regression:
+\begin{equation*}
+	\frac{I_{it}}{K_{it}} = \alpha + \beta Q_{it} + \epsilon_{it}	
+\end{equation*}
+
+\item Problem:
+\begin{itemize}
+	\item Where did the $\epsilon_{it}$ come from?
+	\item Q-theory says that there should be no $\epsilon_{it}$
+	\item To estimate this equation, we need to know about $\epsilon_{it}$. Is it orthogonal to $Q_{it}$?!
+\end{itemize}
+
+\item View 1: measurement error in $Q_{it}$:
+\begin{itemize}
+	\item Stocks are volatile and may not reflect fundamental value
+	\item Assumptions under which marginal = average Q may not hold
+	\item Measurement error would result in attenuation bias
+\end{itemize}
+
+\item View 2: model is wrong and other factors affect investment
+\begin{itemize}
+	\item If other factors that raise desired investment also raise interest rates, they may lower $Q_{it}$ and downward bias $\beta$
+	\item Bias could go either way 
+\end{itemize}
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Beyond Q}
+\begin{witemize}
+\item Suppose we are interested in whether internal funds (cash flows) affect investment. Why? 
+
+\item Simple approach:
+\begin{equation*}
+	\frac{I_{it}}{K_{it}} = \alpha + \beta_1 Q_{it} + \beta_2 \frac{CF_{it}}{K_{it}} + \epsilon_{it}
+\end{equation*}
+
+\item Problem:
+\begin{itemize}
+	\item Cash flow likely correlated with future profitability
+	\item If $Q_{it}$ is mismeasured, cash flow would proxy for Q even if financial markets are perfect
+\end{itemize}
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Fazzari-Hubbard-Petersen (1988)}
+\begin{witemize}
+\item Use diff-in-diff strategy to circumvent cash flow - profitability correlation problem
+
+\item Different groups of firms: e.g. high- vs. low-dividend-firms
+
+\item Low dividends proxy for greater financial constraints
+
+\item Is investment more sensitive to cash flows for low-dividend?
+
+\item Identifying assumption: cash flow - profitability correlation the same on average for two groups
+
+\item \textbf{Result:} Cash flow sensitivity much higher for low dividend firms. Marginal propensity to invest out of cash flows very high. 
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Do cash flows matter for investment?}
+\begin{witemize}
+\item Ideal: find a shock to cash flows that is orthogonal to investment opportunities (Q)
+
+\item Well-known examples:
+\begin{itemize}
+	\item Lamont (1997): investment of non-oil subsidiaries of oil companies falls when oil prices fall
+
+	\item Rouh (2006): investment of firms with underfunded pension plans due to drops in asset prices. Compare firms with and without mandatory contributions. Those with mandatory contributions see investment fall more.
+\end{itemize}
+
+
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Temporary investment tax incentives: bonus depreciation}
+\begin{witemize}
+\item Suppose the government introduces a policy that changes the marginal benefit or cost of investment. This is arguably exogenous to the firm.
+
+\item Firms pay taxes on income net of business expenses
+
+\item Can fully expense wages, advertising, etc. immediately 
+
+\item But investment gets expensed over time according to tax depreciation schedules
+
+\item Bonus depreciation accelerates this depreciation schedule
+\end{witemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  SLIDE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Zwick-Mahon (2017)}
+\begin{witemize}
+\item Bonus depreciation changes occur in recessions: may be correlated with other determinants of investment
+
+\item Zwick-Mahon use diff-in-diff strategy:
+\begin{itemize}
+	\item Bonus more valuable in industries with longer lived investments
+	\item Compare effects of bonus across industries with differing investment duration
+\end{itemize}
+
+\item Find large effects. More liquidity constrained firms have larger effects
+
+\item Effect only exists for firms with immediate tax benefit
+
+\end{witemize}
+\end{frame}
+
+
+\end{document}
