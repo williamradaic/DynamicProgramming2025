@@ -41,7 +41,7 @@ function p = define_parameters()
     p.tmax = 100;
 
     % The number of time steps
-    p.I = 300; 
+    p.I = 3000; 
 
 %% Newton Method Tuning Parameters
     

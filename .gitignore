@@ -67,3 +67,5 @@ acs-*.bib
 *.pre
 *.snm
 *.vrb
+
+section/demo codes/section2/ramsey_sequential/define_parameters.m
